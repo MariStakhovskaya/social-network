@@ -1,35 +1,26 @@
-import React, {ChangeEvent} from 'react';
-import s from './MyPosts.module.css'
-import Post from "./Post/Post";
-import {ActionsTypes, postDataType} from "../../../redux/store";
+import React from 'react';
 import {addPostActionCreator, updateNewPostActionCreator} from "../../../redux/profileReducer"
 import MyPosts from "./MyPosts";
 
-type MyPostsType= {
-    postData: Array<postDataType>
-    messages: string
-    dispatch: (action: ActionsTypes) => void
+type MyPostsContainerType= {
+   store:any
 }
 
-const MyPostsContainer = (props: MyPostsType) => {
+const MyPostsContainer = (props: MyPostsContainerType) => {
 
-    let postsElements = props.postData.map((p: postDataType) => {
-        return <Post messages={p.messages} likeCount={p.likeCount}/>
-    })
+    let state = props.store.getState()
 
-
-
-    let addPost = () => {
+    let addPost = (PostText: string) => {
       //      props.addPost(props.messages);
-        props.dispatch(addPostActionCreator(props.messages))
+        props.store.dispatch(addPostActionCreator(PostText))
     }
 
-const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement> )=> {
+const newTextChangeHandler = (newText: string )=> {
        // props.changeNewTextCallback(e.currentTarget.value)
-    props.dispatch(updateNewPostActionCreator( e.currentTarget.value))
+    props.store.dispatch(updateNewPostActionCreator(newText))
     }
 
-    return
+    return <MyPosts changeNewTextCallback={newTextChangeHandler} addPost={addPost} postData={state.profilePage.postData} messages={state.profilePage.messageForNewText}/>
 
 }
 

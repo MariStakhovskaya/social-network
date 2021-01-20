@@ -3,34 +3,38 @@ import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
 import {
-    ActionsTypes,
     dialogsDataType,
     dialogsPageType,
     messagesDataType,
 } from "../../redux/store";
 
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogsReducer"
-
 
 type DialogsPropsType = {
+    updateNewMessageBodyCreator: (body: string)=> void
+    sendMessage: (body: string)=>void
     dialogsPage: dialogsPageType
-    dispatch: (action: ActionsTypes) => void
 }
-const Dialogs = (props:DialogsPropsType) => {
 
-    let dialogsElements = props.dialogsPage.dialogsData.map((d:dialogsDataType) => {
+
+const Dialogs = (props:DialogsPropsType) => {
+    let state = props.dialogsPage
+
+    let dialogsElements = state.dialogsData.map((d:dialogsDataType) => {
         return <DialogItem name={d.name} id={d.id}/>
     })
-    let messageElements = props.dialogsPage.messagesData.map((messageObj:messagesDataType) => {
+    let messageElements = state.messagesData.map((messageObj:messagesDataType) => {
         return <Message message={messageObj.message}/>
     })
-    let newMessageBody = props.dialogsPage.newMessageBody;
+    let newMessageBody = state.newMessageBody;
 
     let onSendMessageClick = () => {
-props.dispatch(sendMessageCreator(props.dialogsPage.newMessageBody))
+    props.sendMessage(newMessageBody)
+//props.dispatch(sendMessageCreator(props.dialogsPage.newMessageBody))
     }
     let onNewMessageChange =(e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewMessageBodyCreator(e.currentTarget.value))
+        let body = e.target.value
+        props.updateNewMessageBodyCreator(body)
+        //props.dispatch(updateNewMessageBodyCreator(e.currentTarget.value))
     }
 
     return (
@@ -45,11 +49,7 @@ props.dispatch(sendMessageCreator(props.dialogsPage.newMessageBody))
                     <div><textarea onChange={onNewMessageChange} value={newMessageBody} placeholder='Enter your message'></textarea></div>
                     <div> <button onClick={onSendMessageClick}>Send</button></div>
                 </div>
-
-
-
             </div>
-
            </div>
     )
 }

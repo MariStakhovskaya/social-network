@@ -8,7 +8,7 @@ const ProfileInfo = () => {
         <div>
 
             <div className={s.img}>
-                <img src="https://blueballroom.net/wp-content/uploads/2019/02/Homepage-Slider-2-1400x430.jpg"/>
+                <img alt="avatar" src="https://blueballroom.net/wp-content/uploads/2019/02/Homepage-Slider-2-1400x430.jpg"/>
             </div>
             <div className={s.descriptionBlock}>
                 ava+ description

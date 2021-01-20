@@ -11,12 +11,11 @@ import React from "react";
 
 
 const renderThree = (state: RootStateType) => {
-    debugger;
     ReactDOM.render(
 
         <BrowserRouter>
 
-            <App  state={state} dispatch={store.dispatch.bind(store)}  messages={state.profilePage.messageForNewText} store={store}/>
+            <App  state={state} dispatch={store.dispatch.bind(store)}  store={store}/>
         </BrowserRouter>, document.getElementById('root'));
 }
 renderThree(store.getState());
