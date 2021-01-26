@@ -1,12 +1,15 @@
 import React from 'react';
 import {addPostActionCreator, updateNewPostActionCreator} from "../../../redux/profileReducer"
 import MyPosts from "./MyPosts";
+import {connect} from "react-redux";
+import {RootStateType} from "../../../redux/store";
 
-type MyPostsContainerType= {
+
+/*type MyPostsContainerType= {
    store:any
-}
+}*/
 
-const MyPostsContainer = (props: MyPostsContainerType) => {
+/*const MyPostsContainer = (props: MyPostsContainerType) => {
 
     let state = props.store.getState()
 
@@ -22,6 +25,22 @@ const newTextChangeHandler = (newText: string )=> {
 
     return <MyPosts changeNewTextCallback={newTextChangeHandler} addPost={addPost} postData={state.profilePage.postData} messages={state.profilePage.messageForNewText}/>
 
+}*/
+
+let mapStateToProps = (state: RootStateType) => {
+    return {
+        postData: state.profilePage.postData,
+        messages: state.profilePage.messageForNewText
+    }
 }
+
+let mapDispatchToProps = (dispatch: any) => {
+    return {
+        changeNewTextCallback: (newText: string) => { dispatch(updateNewPostActionCreator(newText)) },
+        addPost: (PostText: string) => { dispatch(addPostActionCreator(PostText)) }
+    }
+}
+
+let MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
 export default MyPostsContainer;

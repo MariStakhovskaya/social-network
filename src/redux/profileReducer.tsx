@@ -2,8 +2,9 @@ import {postDataType} from "./store";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-export type ProfileActionsTypes = ReturnType<typeof addPostActionCreator > | ReturnType<typeof updateNewPostActionCreator>
-
+export type ProfileActionsTypes =
+    ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof updateNewPostActionCreator>
 
 
 export const addPostActionCreator = (PostText: string) => {
@@ -21,17 +22,16 @@ export const updateNewPostActionCreator = (newText: string) => {
 }
 
 
-
 let initialState = {
-        postData: [
-            {id: 1, messages: 'Hi How are you?', likeCount: 15},
-            {id: 2, messages: 'Its my first post?', likeCount: 29},
-            {id: 3, messages: 'Наш мап работает', likeCount: 29},
-        ],
-        messageForNewText: "",
-    };
+    postData: [
+        {id: 1, messages: 'Hi How are you?', likeCount: 15},
+        {id: 2, messages: 'Its my first post?', likeCount: 29},
+        {id: 3, messages: 'Наш мап работает', likeCount: 29},
+    ],
+    messageForNewText: "",
+};
 
-const profileReducer = (state = initialState, action: any ) => {
+const profileReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case ADD_POST:
             const newPost: postDataType = {
@@ -39,14 +39,20 @@ const profileReducer = (state = initialState, action: any ) => {
                 messages: action.PostText,
                 likeCount: 0
             }
-            state.postData.push(newPost);
-            state.messageForNewText = '';
-            return state;
+            return {
+                ...state,
+                postData: [...state.postData, newPost],
+                messageForNewText: '',
+            };
+
+        /*stateCopy.postData.push(newPost);*/
+
 
         case UPDATE_NEW_POST_TEXT:
-            state.messageForNewText = action.newText;
-            return state;
-
+            return {
+                ...state,
+                messageForNewText: action.newText,
+            }
         default:
             return state;
     }
