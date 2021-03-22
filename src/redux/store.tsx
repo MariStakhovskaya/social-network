@@ -1,25 +1,21 @@
 import profileReducer, {ProfileActionsTypes} from "./profileReducer";
 import dialogsReducer, {DialogsActionsTypes} from "./dialogsReducer";
+import usersReducer, {actionType} from "./usersReducer";
 
-export type messagesDataType = {
+ type messagesDataType = {
     id: number
     message: string
 }
 
-export type dialogsDataType = {
+ type dialogsDataType = {
     id: number
     name: string
 }
 
-export type postDataType = {
+ type postDataType = {
     id: number
     messages: string
     likeCount: number
-}
-
-export type profilePageType = {
-    postData: Array<postDataType>
-    messageForNewText: string
 }
 
 export type dialogsPageType = {
@@ -28,16 +24,45 @@ export type dialogsPageType = {
     newMessageBody: string
 }
 
-export type RootStateType = {
-    profilePage: profilePageType
-    dialogsPage: dialogsPageType
+ type profilePageType = {
+    postData: Array<postDataType>
+    messageForNewText: string
 }
 
-export type ActionsTypes = DialogsActionsTypes | ProfileActionsTypes
+
+
+ type usersLocationType = {
+    city:string,
+    country: string
+}
+ type usersType = {
+    id: number,
+    photos: string
+    followed: boolean,
+    name: string,
+    status:string,
+    location: usersLocationType
+}
+
+ type usersPageType = {
+    users: Array<usersType>
+    pageSize: number,
+    totalUserCount: number,
+    currentPage: number
+
+}
+
+ type RootStateType = {
+    profilePage: profilePageType
+    dialogsPage: dialogsPageType
+    usersPage: usersPageType
+}
+
+ type ActionsTypes = DialogsActionsTypes | ProfileActionsTypes | actionType
 
 
 
-export type StoreType = {
+ type StoreType = {
     _state: RootStateType
     _callSubscriber: (state: RootStateType) => void
     subscribe: (observer: (state: RootStateType) => void) => void
@@ -78,6 +103,24 @@ let store: StoreType = {
             ],
             newMessageBody: "",
         },
+        usersPage: {
+            users: [
+                {id: 1,
+                    photos:  'https://cdnimg.rg.ru/i/gallery/57457a37/1_92ab665e.jpg',
+
+                    followed: false, name: 'Mary', status:'I am a student ', location: {city:'Minsk', country: 'Belarus'}},
+                {id: 2,
+                    photos: 'https://cdnimg.rg.ru/i/gallery/57457a37/1_92ab665e.jpg',
+                    followed: true, name: 'Nick', status:'I work ', location: {city:'Gomel', country: 'Belarus'}},
+                {id: 3,
+                    photos: 'https://cdnimg.rg.ru/i/gallery/57457a37/1_92ab665e.jpg',
+                    followed: false, name: 'Kris', status:'I am a student ', location: {city:'Vilnus', country: 'Europe'}},
+            ],
+            pageSize: 5,
+            totalUserCount: 1,
+            currentPage: 1
+
+        }
 
     },
     _callSubscriber() {
@@ -90,9 +133,10 @@ let store: StoreType = {
         return this._state;
     },
 
-    dispatch(action) {
+    dispatch(action:any) {
         this._state.profilePage = profileReducer( this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer( this._state.dialogsPage, action);
+        this._state.usersPage = usersReducer(this._state.usersPage, action)
         this._callSubscriber(this._state);
 
     }

@@ -1,28 +1,35 @@
-import {postDataType} from "./store";
-
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 export type ProfileActionsTypes =
     ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewPostActionCreator>
 
+export type postDataType = {
+    id: number,
+    messages: string,
+    likeCount: number
+}
 
+export type ProfilePageType = {
+    postData: postDataType[]
+    messageForNewText: string
+}
 export const addPostActionCreator = (PostText: string) => {
     return {
-        type: "ADD-POST",
+        type: ADD_POST,
         PostText: PostText
     } as const
 }
 
 export const updateNewPostActionCreator = (newText: string) => {
     return {
-        type: "UPDATE-NEW-POST-TEXT",
+        type: UPDATE_NEW_POST_TEXT,
         newText: newText
     } as const
 }
 
 
-let initialState = {
+let initialState:ProfilePageType = {
     postData: [
         {id: 1, messages: 'Hi How are you?', likeCount: 15},
         {id: 2, messages: 'Its my first post?', likeCount: 29},
@@ -31,7 +38,7 @@ let initialState = {
     messageForNewText: "",
 };
 
-const profileReducer = (state = initialState, action: any) => {
+const profileReducer = (state:ProfilePageType = initialState, action: ProfileActionsTypes) => {
     switch (action.type) {
         case ADD_POST:
             const newPost: postDataType = {

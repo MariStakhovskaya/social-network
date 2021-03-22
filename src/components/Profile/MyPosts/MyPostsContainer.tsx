@@ -1,10 +1,12 @@
 import React from 'react';
-import {addPostActionCreator, updateNewPostActionCreator} from "../../../redux/profileReducer"
+import {addPostActionCreator, ProfilePageType, updateNewPostActionCreator} from "../../../redux/profileReducer"
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {RootStateType} from "../../../redux/store";
 
+type MyPostsContainerType = {
+    profilePage: ProfilePageType
 
+}
 /*type MyPostsContainerType= {
    store:any
 }*/
@@ -27,7 +29,7 @@ const newTextChangeHandler = (newText: string )=> {
 
 }*/
 
-let mapStateToProps = (state: RootStateType) => {
+let mapStateToProps = (state: MyPostsContainerType) => {
     return {
         postData: state.profilePage.postData,
         messages: state.profilePage.messageForNewText

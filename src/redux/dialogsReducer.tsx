@@ -18,8 +18,22 @@ export const updateNewMessageBodyCreator = (body: string) => {
 
     } as const
 }
+export type messagesDataType = {
+    id: number
+    message: string
+}
 
-let initialState = {
+export type dialogsDataType = {
+    id: number
+    name: string
+}
+
+export type dialogsPageType = {
+    dialogsData: Array<dialogsDataType>
+    messagesData: Array<messagesDataType>
+    newMessageBody: string
+}
+let initialState: dialogsPageType = {
         dialogsData: [
             {id: 1, name: "Dimych"},
             {id: 2, name: "Andrew"},
@@ -40,7 +54,7 @@ let initialState = {
         newMessageBody: "",
     };
 
-const dialogsReducer = (state = initialState, action: any) => {
+const dialogsReducer = (state = initialState, action: DialogsActionsTypes) => {
 
 
     switch (action.type) {

@@ -1,10 +1,13 @@
 import React from 'react';
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogsReducer"
+import {dialogsPageType, sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogsReducer"
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {RootStateType} from "../../redux/store";
 
 
+type DialogsContainerType = {
+    dialogsPage: dialogsPageType
+
+}
 /*type DialogsContainerPropsType = {
     store: any
 }*/
@@ -26,7 +29,7 @@ import {RootStateType} from "../../redux/store";
 
 
 
-let mapStateToProps = (state: RootStateType) => {
+let mapStateToProps = (state: DialogsContainerType) => {
     return {
         dialogsPage: state.dialogsPage
     }

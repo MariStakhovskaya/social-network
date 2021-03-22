@@ -1,8 +1,12 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import { postDataType} from "../../../redux/store";
 
+type postDataType = {
+    id: number
+    messages: string
+    likeCount: number
+}
 
 type MyPostsType= {
     postData: Array<postDataType>
