@@ -1,7 +1,6 @@
 import {combineReducers, createStore} from "redux";
 import dialogsReducer from "./dialogsReducer";
 import profileReducer from "./profileReducer";
-import {useReducer} from "react";
 import usersReducer from "./usersReducer";
 
 export type RootState = ReturnType<typeof reducers>

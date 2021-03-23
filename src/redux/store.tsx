@@ -46,10 +46,10 @@ export type dialogsPageType = {
 
  type usersPageType = {
     users: Array<usersType>
-    pageSize: number,
-    totalUserCount: number,
+    pageSize: number
+    totalUserCount: number
     currentPage: number
-
+     isFetching: boolean
 }
 
  type RootStateType = {
@@ -118,7 +118,8 @@ let store: StoreType = {
             ],
             pageSize: 5,
             totalUserCount: 1,
-            currentPage: 1
+            currentPage: 1,
+            isFetching: false
 
         }
 

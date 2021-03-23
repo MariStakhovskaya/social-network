@@ -4,6 +4,7 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 export type actionType =
     | ReturnType<typeof followAC>
@@ -11,6 +12,7 @@ export type actionType =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
+    | ReturnType<typeof toggleIsFetchingAC>
 
 export type usersLocationType = {
     city:string,
@@ -31,31 +33,15 @@ export type usersPageType = {
     pageSize: number,
     totalUserCount: number
     currentPage: number
+    isFetching: boolean
 }
-
-/*export type UsersActionsTypes = {
-    type: "SET_USERS" | "FOLLOW" | "UNFOLLOW" | "SET_CURRENT_PAGE"
-    userID: number
-    users: Array<usersRType>
-    pageSize: number,
-    totalUserCount: number
-}*/
-
-export type usersStateType = {
-    usersPage: usersRType
-    pageSize: number,
-    totalUserCount: number
-    currentPage: number
-
-
-}
-
 
 let initialState:usersPageType  = {
     users: [],
     pageSize: 5,
-    totalUserCount: 10,
-    currentPage: 1
+    totalUserCount: 0,
+    currentPage: 1,
+    isFetching: true
 };
 
 export const followAC = (userID: number) => ({type: "FOLLOW", userID: userID} as const)
@@ -66,6 +52,8 @@ export const setCurrentPageAC = (currentPage:number) => ({ type: "SET_CURRENT_PA
 
 export const setTotalUsersCountAC = (totalCount:number) => ({type: SET_TOTAL_COUNT,
     totalUserCount: totalCount} as const )
+
+export const toggleIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching: isFetching} as const)
 
 const usersReducer = (state: usersPageType = initialState, action:actionType ) => {
     switch (action.type){
@@ -78,6 +66,7 @@ const usersReducer = (state: usersPageType = initialState, action:actionType ) =
         case SET_TOTAL_COUNT: {
             return {...state, totalUserCount: action.totalUserCount}
         }
+
 
         case FOLLOW:
        return  {
@@ -100,9 +89,10 @@ const usersReducer = (state: usersPageType = initialState, action:actionType ) =
                     return u
                 })
             }
-
-
-
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state, isFetching: action.isFetching
+            }
 
         default:
             return state;
