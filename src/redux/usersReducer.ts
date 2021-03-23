@@ -7,12 +7,12 @@ const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 export type actionType =
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unfollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
-    | ReturnType<typeof toggleIsFetchingAC>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
 
 export type usersLocationType = {
     city:string,
@@ -44,16 +44,16 @@ let initialState:usersPageType  = {
     isFetching: true
 };
 
-export const followAC = (userID: number) => ({type: "FOLLOW", userID: userID} as const)
-export const unfollowAC = (userID: number) => ({type: "UNFOLLOW", userID: userID} as const)
-export const setUsersAC = (users: Array<usersRType>) => ({type: "SET_USERS", users: users} as const)
-export const setCurrentPageAC = (currentPage:number) => ({ type: "SET_CURRENT_PAGE",
+export const follow = (userID: number) => ({type: "FOLLOW", userID: userID} as const)
+export const unfollow = (userID: number) => ({type: "UNFOLLOW", userID: userID} as const)
+export const setUsers = (users: Array<usersRType>) => ({type: "SET_USERS", users: users} as const)
+export const setCurrentPage = (currentPage:number) => ({ type: "SET_CURRENT_PAGE",
     pageNumber: currentPage} as const)
 
-export const setTotalUsersCountAC = (totalCount:number) => ({type: SET_TOTAL_COUNT,
+export const setTotalUsersCount = (totalCount:number) => ({type: SET_TOTAL_COUNT,
     totalUserCount: totalCount} as const )
 
-export const toggleIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching: isFetching} as const)
+export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching: isFetching} as const)
 
 const usersReducer = (state: usersPageType = initialState, action:actionType ) => {
     switch (action.type){

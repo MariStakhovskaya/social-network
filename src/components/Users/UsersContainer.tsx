@@ -1,18 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC, toggleIsFetchingAC,
-    unfollowAC,
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers, toggleIsFetching,
+    unfollow,
     usersRType
 } from '../../redux/usersReducer';
-import {Dispatch} from 'redux';
 import {RootState} from '../../redux/reduxStore';
 import axios from 'axios';
 import Users from './Users';
-import preloader from '../../assets/image/spinner.gif'
 import Preloader from "../common/Preloader/Preloader";
 
 type UserAPIComponentType = {
@@ -78,7 +76,7 @@ let mapStateToProps = (state: RootState) => {
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch) => {
+/*let mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         follow: (userID: number) => { dispatch(followAC(userID))},
         unfollow: (userID: number) => { dispatch(unfollowAC(userID))},
@@ -87,7 +85,8 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
         setTotalUsersCount: (totalCount: number) => {dispatch(setTotalUsersCountAC(totalCount))},
         toggleIsFetching: (isFetching: boolean) => {dispatch(toggleIsFetchingAC(isFetching))}
     }
-}
+}*/
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+export default connect(mapStateToProps, {follow,unfollow,setUsers,setCurrentPage,
+    setTotalUsersCount,toggleIsFetching})(UsersAPIComponent);
