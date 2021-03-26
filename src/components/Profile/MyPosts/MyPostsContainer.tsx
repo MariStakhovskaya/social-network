@@ -1,10 +1,10 @@
 import React from 'react';
-import {addPostActionCreator, ProfilePageType, updateNewPostActionCreator} from "../../../redux/profileReducer"
+import {addPostActionCreator, ProfilePageRedType, updateNewPostActionCreator} from "../../../redux/profileReducer"
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 
 type MyPostsContainerType = {
-    profilePage: ProfilePageType
+    profilePage: ProfilePageRedType
 
 }
 /*type MyPostsContainerType= {

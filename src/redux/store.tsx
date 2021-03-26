@@ -27,6 +27,7 @@ export type dialogsPageType = {
  type profilePageType = {
     postData: Array<postDataType>
     messageForNewText: string
+     profile: any
 }
 
 
@@ -82,6 +83,7 @@ let store: StoreType = {
                 {id: 3, messages: 'Наш мап работает', likeCount: 29},
             ],
             messageForNewText: "",
+            profile: null
         },
         dialogsPage: {
             dialogsData: [
