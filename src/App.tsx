@@ -11,41 +11,33 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
-type AppPropsType = {
-   /* store: any*/
-   /* state: RootStateType
-    dispatch: (action: ActionsTypes) => void*/
-}
+type AppPropsType = {}
 
-
-
-const App = (props:AppPropsType ) => {
+const App = (props: AppPropsType) => {
 
     return (
 
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <div className="app-wrapper-content">
-                    <Route path="/dialogs"
-                           render={ () => <DialogsContainer  />} />
-                    <Route path="/profile"
-                           render={ () => <ProfileContainer  /> } />
-                    <Route path="/news"
-                           render={ () => <News />} />
-                    <Route path="/music"
-                           render={ () => <Music />} />
-                    <Route path="/setting"
-                           render={ () => <Setting />} />
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar/>
+            <div className="app-wrapper-content">
+                <Route path="/dialogs"
+                       render={() => <DialogsContainer/>}/>
+                <Route path="/profile/:userId?"
+                       render={() => <ProfileContainer/>}/>
+                <Route path="/news"
+                       render={() => <News/>}/>
+                <Route path="/music"
+                       render={() => <Music/>}/>
+                <Route path="/setting"
+                       render={() => <Setting/>}/>
 
-                    <Route path="/users"
-                           render={ () => <UsersContainer />} />
-                </div>
+                <Route path="/users"
+                       render={() => <UsersContainer/>}/>
             </div>
+        </div>
 
-
-)
-    ;
+    );
 }
 
 

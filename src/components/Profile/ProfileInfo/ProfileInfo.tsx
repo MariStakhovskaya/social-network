@@ -13,7 +13,6 @@ const ProfileInfo = (props:profileInfoType) => {
     }
     return (
         <div>
-
             <div className={s.img}>
                 <img alt="avatar" src="https://blueballroom.net/wp-content/uploads/2019/02/Homepage-Slider-2-1400x430.jpg"/>
             </div>
@@ -23,8 +22,6 @@ const ProfileInfo = (props:profileInfoType) => {
                    <div> Name: <b>{props.profile.fullName}</b></div>
                   <div>Github:  <b>{props.profile.contacts.github}</b></div>
             </div>
-
-
         </div>
     )
 }
