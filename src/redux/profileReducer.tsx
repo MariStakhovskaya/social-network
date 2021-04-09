@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -23,6 +26,11 @@ export type ProfilePageRedType = {
 export const addPostActionCreator = (PostText: string) => ({type: ADD_POST,PostText: PostText} as const)
 export const updateNewPostActionCreator = (newText: string) => ({type: UPDATE_NEW_POST_TEXT,newText: newText} as const)
 export const setUserProfile = (profile: any)=>({type: SET_USER_PROFILE, profile: profile} as const)
+export const getUserProfile = (userId: any) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfile(response.data))
+    })
+}
 
 let initialState:ProfilePageRedType = {
     postData: [
