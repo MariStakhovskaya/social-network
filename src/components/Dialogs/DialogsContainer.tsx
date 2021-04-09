@@ -6,32 +6,14 @@ import {connect} from "react-redux";
 
 type DialogsContainerType = {
     dialogsPage: dialogsPageType
+    auth: any
 
 }
-/*type DialogsContainerPropsType = {
-    store: any
-}*/
-
-/*const DialogsContainer = (props:DialogsContainerPropsType) => {
-
-    let state = props.store.getState().dialogsPage
-
-
-    let onSendMessageClick = (body: string) => {
-        props.store.dispatch(sendMessageCreator(body))
-    }
-    let onNewMessageChange =(body: string) => {
-        props.store.dispatch(updateNewMessageBodyCreator(body))
-    }
-
-    return <Dialogs updateNewMessageBodyCreator={onNewMessageChange} sendMessage={onSendMessageClick} dialogsPage={state} />
-}*/
-
-
 
 let mapStateToProps = (state: DialogsContainerType) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth
     }
 }
 
