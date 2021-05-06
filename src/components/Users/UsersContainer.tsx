@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {connect} from 'react-redux';
 import {
     follow, getUsers,
@@ -10,6 +10,9 @@ import {
 import {RootState} from '../../redux/reduxStore';
 import Users from './Users';
 import Preloader from "../common/Preloader/Preloader";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import Dialogs from "../Dialogs/Dialogs";
+import {compose} from "redux";
 
 
 
@@ -66,6 +69,9 @@ let mapStateToProps = (state: RootState) => {
     }
 }
 
-export default connect(mapStateToProps, {
-    follow, unfollow, setCurrentPage,
-     toggleFollowingProgress, getUsers})(UsersAPIComponent);
+export default compose<FC>(
+    connect(mapStateToProps, {
+        follow, unfollow, setCurrentPage,
+        toggleFollowingProgress, getUsers}),
+    WithAuthRedirect
+)(UsersAPIComponent)
