@@ -22,7 +22,23 @@ export const usersAPI = {
     },
 
     getProfile(userId: any) {
-       return instance.get(`profile/` + userId)
+        console.warn('Obsolete method. Please use profileAPI')
+       return profileAPI.getProfile(userId)
+    }
+}
+
+
+export const profileAPI = {
+
+    getProfile(userId: any) {
+        return instance.get(`profile/` + userId)
+    },
+    getStatus(userId: any) {
+        return instance.get(`profile/status/`  + userId)
+    },
+    updateStatus(status: string) {
+        return instance.put(`profile/status`, {status: status})
+
     }
 }
 
