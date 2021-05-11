@@ -1,23 +1,23 @@
 import React from 'react';
-import {addPostActionCreator, ProfilePageRedType, updateNewPostActionCreator} from "../../../redux/profileReducer"
+import {addPostActionCreator, ProfilePageRedType} from "../../../redux/profileReducer"
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 
 type MyPostsContainerType = {
     profilePage: ProfilePageRedType
+    newPostText: string
 }
 
 let mapStateToProps = (state: MyPostsContainerType) => {
     return {
         postData: state.profilePage.postData,
-        messages: state.profilePage.messageForNewText
+        newPostText: state.profilePage.newPostText
     }
 }
 
 let mapDispatchToProps = (dispatch: any) => {
     return {
-        changeNewTextCallback: (newText: string) => { dispatch(updateNewPostActionCreator(newText)) },
-        addPost: (PostText: string) => { dispatch(addPostActionCreator(PostText)) }
+        addPost: (newPostText: string) => { dispatch(addPostActionCreator(newPostText)) }
     }
 }
 

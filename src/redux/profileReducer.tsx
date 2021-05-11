@@ -2,15 +2,11 @@ import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
-
-
 export type ProfileActionsTypes =
     ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostActionCreator>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
 
@@ -22,12 +18,11 @@ export type postDataType = {
 
 export type ProfilePageRedType = {
     postData: postDataType[]
-    messageForNewText: string
     profile: any
     status: string
+    newPostText: string
 }
-export const addPostActionCreator = (PostText: string) => ({type: ADD_POST,PostText: PostText} as const)
-export const updateNewPostActionCreator = (newText: string) => ({type: UPDATE_NEW_POST_TEXT,newText: newText} as const)
+export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST,newPostText: newPostText} as const)
 export const setUserProfile = (profile: any)=>({type: SET_USER_PROFILE, profile: profile} as const)
 export const setStatus = (status: any)=>({type: SET_STATUS, status: status} as const)
 
@@ -57,7 +52,7 @@ let initialState:ProfilePageRedType = {
         {id: 2, messages: 'Its my first post?', likeCount: 29},
         {id: 3, messages: 'Наш мап работает', likeCount: 29},
     ],
-    messageForNewText: "",
+    newPostText: '',
     profile: null,
     status: ""
 };
@@ -67,7 +62,7 @@ const profileReducer = (state:ProfilePageRedType = initialState, action: Profile
         case ADD_POST:
             const newPost: postDataType = {
                 id: new Date().getTime(),
-                messages: action.PostText,
+                messages: action.newPostText,
                 likeCount: 0
             }
             return {
@@ -76,11 +71,7 @@ const profileReducer = (state:ProfilePageRedType = initialState, action: Profile
                 messageForNewText: '',
             };
 
-        case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                messageForNewText: action.newText,
-            }
+
         case SET_STATUS:
             return {
                 ...state,
