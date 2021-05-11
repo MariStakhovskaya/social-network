@@ -21,17 +21,14 @@ const MyPosts = (props: MyPostsType) => {
         return <Post messages={p.messages} likeCount={p.likeCount}/>
     })
 
-
     let onAddPost = () => {
             props.addPost(props.messages);
-       // props.dispatch(addPostActionCreator(props.messages))
     }
 
 const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement> )=> {
 
         let text = e.target.value
         props.changeNewTextCallback(text)
-   // props.dispatch(updateNewPostActionCreator( e.currentTarget.value))
     }
 
     return (<div className={s.postsBlock}>
@@ -50,8 +47,6 @@ const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement> )=> {
 
             </div>
         </div>
-
-
     )
 }
 

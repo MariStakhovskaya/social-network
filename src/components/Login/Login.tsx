@@ -1,5 +1,5 @@
 import React from 'react'
-import Field, {InjectedFormProps, reduxForm} from "redux-form";
+import  {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 
 type FormDataType = {
@@ -12,7 +12,7 @@ const LoginForm:  React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return <div>
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={"Login"} component = {"input"} name={"login"} />
+                <Field placeholder={"Login"} component={"input"} name={"login"} />
             </div>
             <div>
                 <Field placeholder={"Password"} component = {"input"} name={"password"} />
