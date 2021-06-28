@@ -1,18 +1,18 @@
-import {Dispatch} from "redux";
+
 import {authAPI} from "../api/api";
+import {ThunkDispatch} from "redux-thunk";
 
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
-
-export type actionType =
-    | ReturnType<typeof setAuthUserData>
+type setAuthUserDataACType =  ReturnType<typeof setAuthUserData>
+export type ActionType = setAuthUserDataACType
 
 
 type InitialStateType = {
-    userId: number | null
-    email: string | null
-    login: string | null
+    userId: null | number
+    email: null | string
+    login: null | string
     isAuth: boolean
 
 }
@@ -25,11 +25,11 @@ let initialState: InitialStateType = {
 };
 
 
-const authReducer = (state: InitialStateType = initialState, action:actionType ) => {
+const authReducer = (state: InitialStateType = initialState, action:ActionType ) => {
     switch (action.type){
         case SET_USER_DATA: {
             return {...state,
-                ...action.data,
+                ...action.payload,
                 isAuth: true
                 }
         }
@@ -39,17 +39,37 @@ const authReducer = (state: InitialStateType = initialState, action:actionType )
     }
 }
 
-export const setAuthUserData = (userId: number, email: string, login: string) => ({type: SET_USER_DATA, data: {userId,email,login}} as const)
+export const setAuthUserData = (userId: null | number, email: null | string, login: null | string, isAuth: boolean) => (
+    {type: SET_USER_DATA, payload: {userId,  email,login, isAuth}} as const)
 
-export const authUserTC = ()  => {
-    return (dispatch: Dispatch<actionType>) => {
+export const getAuthUserTC = ()  => {
+    return (dispatch: ThunkDispatch<InitialStateType, {}, any>) => {
         authAPI.authMe().then(response => {
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data
-                dispatch(setAuthUserData(id, email, login))
+                dispatch(setAuthUserData(id, email, login, true))
             }
         })
     }}
 
-export default authReducer
+//Thunk Creator
+export const login = (email:string, password:string, rememberMe:boolean)  => {
+    return (dispatch:ThunkDispatch<InitialStateType, {}, any>) => {
+        authAPI.login(email,password,rememberMe).then(response => {
+            if (response.data.resultCode === 0) {
+            dispatch(getAuthUserTC())
+            }
+        })
+    }}
+
+export const logout = ()  => {
+    return (dispatch: ThunkDispatch<InitialStateType, {}, any>) => {
+        authAPI.logout().then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, null, false))
+            }
+        })
+    }}
+
+export default authReducer;
 
