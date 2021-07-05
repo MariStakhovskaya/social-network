@@ -60,8 +60,8 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserTC())
             } else {
-
-                dispatch(stopSubmit('login' , {_error : "Email or password is wrong"}))
+                    let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+                dispatch(stopSubmit('login' , {_error : message}))
             }
         })
     }
