@@ -2,7 +2,7 @@ import React from 'react';
 import Header from "./Header";
 import {connect} from 'react-redux';
 import {RootState} from "../../redux/reduxStore";
-import {getAuthUserTC} from "../../redux/authReducer";
+import {getAuthUserTC, logout} from "../../redux/authReducer";
 
 
 type mapStateToProps = {
@@ -11,7 +11,7 @@ type mapStateToProps = {
 }
 
 type MapDispatchPropsType = {
-
+    logout: () =>void
     getAuthUserTC: () => void
 }
 
@@ -38,4 +38,4 @@ let mapStateToProps = (state: RootState): mapStateToProps => {
     }
 }
 
-export default connect(mapStateToProps, {getAuthUserTC})(HeaderContainer);
+export default connect(mapStateToProps, {getAuthUserTC, logout})(HeaderContainer);
