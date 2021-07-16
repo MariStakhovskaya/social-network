@@ -11,7 +11,6 @@ import {RootState} from '../../redux/reduxStore';
 import Users from './Users';
 import Preloader from "../common/Preloader/Preloader";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
-import Dialogs from "../Dialogs/Dialogs";
 import {compose} from "redux";
 
 
@@ -73,5 +72,4 @@ export default compose<FC>(
     connect(mapStateToProps, {
         follow, unfollow, setCurrentPage,
         toggleFollowingProgress, getUsers}),
-    WithAuthRedirect
 )(UsersAPIComponent)
