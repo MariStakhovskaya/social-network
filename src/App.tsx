@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/NavBar";
-import {Route} from "react-router-dom";
+import {Route, withRouter} from "react-router-dom";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Setting from "./components/Setting/Setting";
@@ -10,13 +10,24 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/Login";
+import {connect} from "react-redux";
+import {compose} from "redux";
+import {initializeApp} from "./redux/appReducer";
+import Preloader from "./components/common/Preloader/Preloader";
+import {RootState} from "./redux/reduxStore";
 
 
-type AppPropsType = {}
+class App extends React.Component<AppPropsType>{
+    componentDidMount() {
+        this.props.initializeApp()
+    }
 
-const App = (props: AppPropsType) => {
+    render() {
+        if (!this.props.initialized){
+            return <Preloader/>
+        }
 
-    return (
+        return (
 
         <div className="app-wrapper">
             <HeaderContainer />
@@ -41,9 +52,31 @@ const App = (props: AppPropsType) => {
             </div>
         </div>
 
-    );
+    );}
 }
 
+const  mapStateToProps = (state:RootState ):MapStateType => {
+    return {
+        initialized:state.app.initialized}
+}
 
-export default App;
+type MapStateType = {
+    initialized: boolean
+}
+
+type MapDispatchPropsType = {
+    initializeApp: () => void
+
+}
+
+type AppPropsType = MapStateType & MapDispatchPropsType
+
+
+
+
+
+export default compose<React.ComponentType>(
+    withRouter,
+    connect<MapStateType, MapDispatchPropsType, {}, RootState>(mapStateToProps, {initializeApp}))(App);
+
 
