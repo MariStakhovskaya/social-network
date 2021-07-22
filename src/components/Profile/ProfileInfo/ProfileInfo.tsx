@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './ProfileInfo.module.css'
 import Preloader from "../../common/Preloader/Preloader";
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 
 type profileInfoType = {
@@ -21,8 +21,8 @@ const ProfileInfo = (props:profileInfoType) => {
                 <img alt="avatar" src="https://blueballroom.net/wp-content/uploads/2019/02/Homepage-Slider-2-1400x430.jpg"/>
             </div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large} />
-                        <ProfileStatus  status={props.status} updateStatus={props.updateStatus} />
+                <img src={props.profile.photos.large} alt={"large photo"} />
+                        <ProfileStatusWithHooks  status={props.status} updateStatus={props.updateStatus} />
                    <div> Name: <b>{props.profile.fullName}</b></div>
                   <div>Github:  <b>{props.profile.contacts.github}</b></div>
             </div>
